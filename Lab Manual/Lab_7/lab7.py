@@ -8,6 +8,14 @@ from matplotlib import pyplot as plt
 
 #img = cv2.imread('afridi.png',0)
 
+#Fourier Transformation
+#dft = cv2.dft(np.float32(img),flags = cv2.DFT_COMPLEX_OUTPUT)
+#dft_shift = np.fft.fftshift(dft)
+#magnitude_spectrum = 20*np.log(cv2.magnitude(dft_shift[:,:,0],dft_shift[:,:,1]))
+#plt.subplot(122),plt.imshow(magnitude_spectrum, cmap = 'gray')
+#plt.title('Fourier'), plt.xticks([]), plt.yticks([])
+#plt.show()
+
 #Fourier on Laplacian
 #laplacian = cv2.Laplacian(img, cv2.CV_64F)
 #plt.subplot(122),plt.imshow(laplacian, cmap = 'gray')

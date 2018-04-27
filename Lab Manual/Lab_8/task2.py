@@ -5,7 +5,7 @@ import cv2
 data= np.loadtxt('letter-recognition.data', dtype= 'float32', delimiter = ',',
                     converters= {0: lambda ch: ord(ch)-ord('A')})
 
-# split the data to two, 10000 each for train and test
+# split the data, 10000 each for train and test
 trainSet, testSet = np.vsplit(data,2)
 # split trainData and testData to features and responses
 y_train, x_train = np.hsplit(trainSet,[1]) # break trainSet into 2 chunks from index 1
