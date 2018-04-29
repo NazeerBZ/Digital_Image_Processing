@@ -12,7 +12,6 @@ K.set_image_dim_ordering('th')
 #Data augmentation takes the approach of generating more training data
 #from existing training samples, by augmenting the samples via a number of random
 #transformations. This helps model to generalize better
-
 datagen = ImageDataGenerator(
         rotation_range=40,
         width_shift_range=0.2,
@@ -22,19 +21,33 @@ datagen = ImageDataGenerator(
         horizontal_flip=True,
         fill_mode='nearest')
 
-img = image.load_img('cat.png', target_size=(150,150))
+imgs = ['cat.png', 'dog.png']
+dataset = []
 
-x = image.img_to_array(img)
-x = x.reshape((1,) + x.shape)
-i = 0
-for batch in datagen.flow(x, batch_size=1):
-    plt.figure(i)
-    imgplot = plt.imshow(image.array_to_img(batch[0]))
-    i += 1
-    if i % 4 == 0:
-        break
+def perform_augmentation(img):
+    sample = image.img_to_array(img)
+    sub_dataset = sample.reshape((1,) + sample.shape)
     
-plt.show()
+    i = 0
+    for batch in datagen.flow(sub_dataset, batch_size=1):
+        plt.figure(i)    
+        sub_dataset = np.concatenate((sub_dataset, batch))
+        i += 1
+        if i % 4 == 0:
+            break
+        
+    return sub_dataset
+    
+
+for img in imgs:
+    img = image.load_img(img, target_size=(150,150))
+    sub_dataset = perform_augmentation(img)
+    for sample in sub_dataset:
+        dataset.append(sample)
+       
+dataset = np.array(dataset)
+
+plt.imshow(image.array_to_img(dataset[7]))
 
 
 
