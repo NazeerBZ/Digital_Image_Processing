@@ -39,12 +39,17 @@ def baseline_model():
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
     model.add(Dense(50, activation='relu'))
-    model.add(Dense(num_classes, activation='softmax')) # it will give multiple classes as an output
-    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.add(Dense(num_classes, activation='softmax')) # it's gonna give multiple classes as an output
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
 
 model = baseline_model()
-model.summary()
-model.fit(x_train, y_train, validation_split=0.22, epochs=10, batch_size=200)
-scores = model.evaluate(x_test, y_test)
-print("acc: %.2f%%" % (scores[1]*100))
+model.fit(x_train, y_train, validation_split=0.22, epochs=5, batch_size=200)
+
+loss, accuracy = model.evaluate(x_test, y_test)
+print("\nLoss: %.2f, Accuracy: %.2f%% \n" % (loss, accuracy*100))
+
+y_test_predicted = model.predict_classes(x_test)
+for i in range(len(x_test)):
+	print("Sample=%s, Predicted=%s" % (i, y_test_predicted[i]))
+
