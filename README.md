@@ -1,1 +1,1 @@
-# Digital_Image_Processing (Lab + Theory)
+# Digital_Image_Processing
